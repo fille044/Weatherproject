@@ -6,67 +6,69 @@ https://docs.google.com/document/d/1JL4eCt8dDbwsfjsmIgi8dvCsfmfYcanKNR7fyFdFYA0/
 
 
 Definition:
-Inbyggt system för att samla data av temperaturen vid varje timme dygnet runt. Vi ska använda en Arduino Uno för 
-att koppla samman de sensorer som är nödvändiga för projektet med strömförsörjning och realtidsklocka. Om vi har 
-tid och kunskap är ett ytterligare mål att få utrustningen att fungera utomhus vid vanligt svenskt vårväder. 
+Inbyggt system fï¿½r att samla data av temperaturen vid varje timme dygnet runt. Vi ska anvï¿½nda en Arduino Uno fï¿½r 
+att koppla samman de sensorer som ï¿½r nï¿½dvï¿½ndiga fï¿½r projektet med strï¿½mfï¿½rsï¿½rjning och realtidsklocka. Om vi har 
+tid och kunskap ï¿½r ett ytterligare mï¿½l att fï¿½ utrustningen att fungera utomhus vid vanligt svenskt vï¿½rvï¿½der. 
 
-Med den data som samlas in kan man jämföra temperaturen mot tidigare dagar vid samma klockslag, men även för att 
-få en medeltemperatur, kan i framtiden utökas till att jämföra temperaturen med tidigare år, för att upptäcka en 
-eventuell global uppvärmning. 
+Med den data som samlas in kan man jï¿½mfï¿½ra temperaturen mot tidigare dagar vid samma klockslag, men ï¿½ven fï¿½r att 
+fï¿½ en medeltemperatur, kan i framtiden utï¿½kas till att jï¿½mfï¿½ra temperaturen med tidigare ï¿½r, fï¿½r att upptï¿½cka en 
+eventuell global uppvï¿½rmning. 
 
 
 Metod:
-Läsa av temperaturen en gång i timmen och spara detta i en loggfil för senare jämförelser och sorteringar. Vi 
-börjar med att koppla samman alla komponenter på en breadboard för bra översikt och lätt modifiering. Börja tidigt 
-med testning i små steg, då ingen i gruppen har arbetat med varken temperatursensorn eller realtidsklockan innan. 
+Lï¿½sa av temperaturen en gï¿½ng i timmen och spara detta i en loggfil fï¿½r senare jï¿½mfï¿½relser och sorteringar. Vi 
+bï¿½rjar med att koppla samman alla komponenter pï¿½ en breadboard fï¿½r bra ï¿½versikt och lï¿½tt modifiering. Bï¿½rja tidigt 
+med testning i smï¿½ steg, dï¿½ ingen i gruppen har arbetat med varken temperatursensorn eller realtidsklockan innan. 
 
-En Arduino Uno 328p innehåller 32 KB flash-minne, något vi tror kommer räcka för den lagring vi ska göra. 
-Skulle inte det fungera får vi använda en SD-kortläsare för uthämtning av data. 
-På något sätt ska data hämtas ut, helst i en färdig .txt-fil innehållandes de värden som är intressanta för 
+En Arduino Uno 328p innehï¿½ller 32 KB flash-minne, nï¿½got vi tror kommer rï¿½cka fï¿½r den lagring vi ska gï¿½ra. 
+Skulle inte det fungera fï¿½r vi anvï¿½nda en SD-kortlï¿½sare fï¿½r uthï¿½mtning av data. 
+Pï¿½ nï¿½got sï¿½tt ska data hï¿½mtas ut, helst i en fï¿½rdig .txt-fil innehï¿½llandes de vï¿½rden som ï¿½r intressanta fï¿½r 
 granskning. 
 
-Tanken är att placera den data vi samlar in i en array av typedef-typ, där vi lägger in temperatur och 
-klockslag(eventuellt fukt om tid finns). Här finns möjlighet att utöka med ytterligare en struct innehållandes 
-sekunder, minuter, timmar och dagar för att kunna anpassa utdatan efter användarens behov. 
+Tanken ï¿½r att placera den data vi samlar in i en array av typedef-typ, dï¿½r vi lï¿½gger in temperatur och 
+klockslag(eventuellt fukt om tid finns). Hï¿½r finns mï¿½jlighet att utï¿½ka med ytterligare en struct innehï¿½llandes 
+sekunder, minuter, timmar och dagar fï¿½r att kunna anpassa utdatan efter anvï¿½ndarens behov. 
 
-Placera värden i en typedef-array, temp, fukt och [tid]
-Typedef-array [tid] för sekund, minut, timme, dag
+Placera vï¿½rden i en typedef-array, temp, fukt och [tid]
+Typedef-array [tid] fï¿½r sekund, minut, timme, dag
 
 
-Utrustning som krävs:
+Utrustning som krï¿½vs:
 Arduino UNO 328p
-Batteri för trådlöst användande
+Batteri fï¿½r trï¿½dlï¿½st anvï¿½ndande
 Gyro med inbyggd temperatursensor (MPU6050), alternativt temperatur- och fuktsensor(DHT11)
-Realtidsklocka över I2C (DS3023?) med bibliotek
+Realtidsklocka ï¿½ver I2C (DS3023?) med bibliotek
 Lagring, ex inbyggt flashminne, minneskort, USB-minne
+
+
 Mjukvarukrav:
-Systemet ska kunna vara igång i minst 24h utan underhåll.
-De värden som samlas in ska vara pålitliga.
-Resultaten ska redovisas prydligt i en textfil vid uthämtning av data.
-Väldokumenterad kod som ska vara lätt att sätta sig in i. 
-24 insamlade värden på en 24h mätning
+Systemet ska kunna vara igï¿½ng i minst 24h utan underhï¿½ll.
+De vï¿½rden som samlas in ska vara pï¿½litliga.
+Resultaten ska redovisas prydligt i en textfil vid uthï¿½mtning av data.
+Vï¿½ldokumenterad kod som ska vara lï¿½tt att sï¿½tta sig in i. 
+24 insamlade vï¿½rden pï¿½ en 24h mï¿½tning
 Optimerad och kompakt kod
-Väl valda variabelnamn
-Använda en algoritm för sortering
+Vï¿½l valda variabelnamn
+Anvï¿½nda en algoritm fï¿½r sortering
 
 
 Test och verifikation:
 
-Vi kommer dela upp vårt projekt i fyra stycken milstolpar där varje utgör ett lyckat test. Testen kommer 
-vara fokuserade på projektets huvudsakliga funktion, och kan eventuellt utökas med fler test om fler 
+Vi kommer dela upp vï¿½rt projekt i fyra stycken milstolpar dï¿½r varje utgï¿½r ett lyckat test. Testen kommer 
+vara fokuserade pï¿½ projektets huvudsakliga funktion, och kan eventuellt utï¿½kas med fler test om fler 
 funktioner tillkommer(ex fuktsensor och struct.tid).
 
-[-] Test1: Temperatursensorn ger ett för oss korrekt värde och den data som samlas in visas efter genomfört 
+[-] Test1: Temperatursensorn ger ett fï¿½r oss korrekt vï¿½rde och den data som samlas in visas efter genomfï¿½rt 
 test i en textfil.
-[-] Test2: Ett test som pågår 30 min, där ett värde ska hämtas varannan minut, d.v.s. 15 insamlade värden 
-sparade i en textfil med tillhörande klockslag.
-[-] Test3: Sluttest för inomhusmätning i 24tim, där ett värde hämtas varje timme och sparas. 
-[-] Test4: Utomhus 30min för att testa hållbarhet i den miljön produkten är tänkt att användas.
+[-] Test2: Ett test som pï¿½gï¿½r 30 min, dï¿½r ett vï¿½rde ska hï¿½mtas varannan minut, d.v.s. 15 insamlade vï¿½rden 
+sparade i en textfil med tillhï¿½rande klockslag.
+[-] Test3: Sluttest fï¿½r inomhusmï¿½tning i 24tim, dï¿½r ett vï¿½rde hï¿½mtas varje timme och sparas. 
+[-] Test4: Utomhus 30min fï¿½r att testa hï¿½llbarhet i den miljï¿½n produkten ï¿½r tï¿½nkt att anvï¿½ndas.
 
 
 Om tid finns: 
 
-Lägga till en fuktsensor som komplement till temperaturen. 
-Skapa en typedef-struct som innehåller mer detaljerad tid, och som är länkad till fukt- och temperatur-värdena. 
-LCD-skärm för momentan visning av temperatur och fuktighet, alternativt även klockslag. 
+Lï¿½gga till en fuktsensor som komplement till temperaturen. 
+Skapa en typedef-struct som innehï¿½ller mer detaljerad tid, och som ï¿½r lï¿½nkad till fukt- och temperatur-vï¿½rdena. 
+LCD-skï¿½rm fï¿½r momentan visning av temperatur och fuktighet, alternativt ï¿½ven klockslag. 
 
