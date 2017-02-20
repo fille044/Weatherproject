@@ -2,35 +2,50 @@
 #include <DS3231.h>
 #include <string.h>
 
-//#include "weather_library.h"
+#define DHT11 2
+//#include <weather_library.h>
+typedef struct _weather_S{
+  int temp, humidity, timme;
+} weather;
+weather space[100];
 
 DS3231 rtc(SDA,SCL);
 dht DHT;
-#define DHT11 2
+
+int old_hour;
 
 void setup() {
   Serial.begin(9600);
+  pinMode(8, INPUT);
   rtc.begin();
 }
 
 void loop() {
   int temp = DHT.read11(DHT11);
+
+  int new_hour,i=0;
+  new_hour = atoi(rtc.getTimeStr());
   
-  Serial.print(rtc.getDOWStr());
-  Serial.print(" ");
-  Serial.print(rtc.getDateStr());
-  Serial.print(" ");
-  Serial.println(rtc.getTimeStr());
-  
-  Serial.print("TEMPERATURE: ");
-  Serial.println(DHT.temperature);
-  Serial.print("HUMIDITY: ");
-  Serial.println(DHT.humidity);
-  Serial.print("\n");
+  if(new_hour!=old_hour){
+    space[i].timme=new_hour;
+    old_hour=new_hour;
+    space[i].temp=DHT.temperature;
+    space[i].humidity=DHT.humidity;
+    i++;
 
-  int hour = atoi(rtc.getTimeStr());
-  Serial.println(hour);
+    Serial.println(new_hour);
+  }
 
-  delay(3000);
-
+  if(digitalRead(8)){
+     for(int j=0;j<12;j++){
+        Serial.print("Timme: ");
+        Serial.print(space[j].timme);
+        Serial.print(" | Temp: ");
+        Serial.print(space[j].temp);
+        Serial.print((char)223);
+        Serial.print(" | Fuktighet: ");
+        Serial.println(space[j].humidity);
+      }
+    }
+  delay(500);
 }
