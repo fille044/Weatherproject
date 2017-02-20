@@ -1,35 +1,39 @@
+#include <stdlib.h>
+#include <stdio.h>
 #include <SD.h>
-#include <dht.h>
 #include <DS3231.h>
-#include <string.h>
-
+#include <dht.h>
+#include "library.h"
 #define DHT11 2
-#include <weather_library.h>
-/*typedef struct _weather_S{
-  int temp, humidity, timme;
-} weather;
-weather space[100];*/
+#define Button 8
+#define chipSelect 10
 
 DS3231 rtc(SDA,SCL);
 dht DHT;
 
 int old_hour;
-const byte chipSelect = 10;
+int i = 0;
+
+typedef struct _weather_S{
+  int temp;
+  int humidity; 
+  int measured_hour;
+} weather;
+weather space[100];
 
 
 void setup() {
   Serial.begin(9600);
-  pinMode(8, INPUT);
+  pinMode(Button, INPUT);
   rtc.begin();
   
+  // wait for serial port to connect. Needed for native USB port only
   while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
+    ; 
   }
-
-
-  Serial.print("Initializing SD card...");
-
   // see if the card is present and can be initialized:
+  Serial.print("Initializing SD card...");
+  
   if (!SD.begin(chipSelect)) {
     Serial.println("Card failed, or not present");
     // don't do anything more:
@@ -38,31 +42,26 @@ void setup() {
   Serial.println("card initialized.");
 }
 
+
 void loop() {
   int temp = DHT.read11(DHT11);
+  int new_hour = atoi(rtc.getTimeStr());
 
-  int new_hour,i=0;
-  new_hour = atoi(rtc.getTimeStr());
-  
-  if(new_hour!=old_hour){
-    space[i].timme=new_hour;
-    old_hour=new_hour;
-    space[i].temp=DHT.temperature;
-    space[i].humidity=DHT.humidity;
+  // If the hour variable has been changed, read new values
+  if (new_hour != old_hour){
+    space[i].measured_hour = new_hour;
+    old_hour = new_hour;
+    space[i].temp = DHT.temperature;
+    space[i].humidity = DHT.humidity;
     i++;
-
     Serial.println(new_hour);
   }
 
-  if(digitalRead(8)){
-     for(int j=0;j<12;j++){
-        Serial.print("Timme: ");
-        Serial.print(space[j].timme);
-        Serial.print(" | Temp: ");
-        Serial.print(space[j].temp);
-        Serial.print(" | Fuktighet: ");
-        Serial.println(space[j].humidity);
-        print_to_SD(space[j].timme,space[j].temp,space[j].humidity);
+  // If button is pressed
+  if (digitalRead(Button)){
+     for (int j=0 ; j<12 ; j++){
+        print_to_SD(space[j].measured_hour, space[j].temp, space[j].humidity); 
+        print_to_SD(space[j].measured_hour, space[j].temp, space[j].humidity);
       }
     }
   delay(500);

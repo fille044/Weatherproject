@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <SPI.h>
+#include <SD.h>
+#include "library.h"
+
+void print_to_SD(int measured_hour, int temp, int humidity){
+  File dataFile = SD.open("results.txt", FILE_WRITE);
+  if(dataFile){
+    dataFile.print("Timme: ");
+    dataFile.print(measured_hour);
+    dataFile.print(" | Temp: ");
+    dataFile.print(temp);
+    dataFile.print(" | Fuktighet: ");
+    dataFile.println(humidity);
+    dataFile.close();
+  }
+  else
+    Serial.println("error opening the file.");
+}
+
+void print_to_serial(int measured_hour, int temp, int humidity){
+  Serial.print("Timme: ");
+  Serial.print(measured_hour);
+  Serial.print(" | Temp: ");
+  Serial.print(temp);
+  Serial.print(" | Fuktighet: ");
+  Serial.println(humidity);
+}
+
