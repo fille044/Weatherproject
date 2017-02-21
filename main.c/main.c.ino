@@ -7,8 +7,8 @@
 #define DHT11 2
 #define Button 8
 #define chipSelect 10
-#define backlog 12
-#define array_size 100
+#define backlog 6
+#define array_size 10
 
 DS3231 rtc(SDA,SCL);
 dht DHT;
@@ -54,8 +54,12 @@ void loop() {
   int new_hour = atoi(rtc.getTimeStr());
   
   static int i = 0;
+    Serial.print(" *** "); 
+    Serial.print(i); 
+    Serial.println(" *** "); 
   // If the hour variable has been changed, read new values
   if (new_hour != old_hour){
+    space[i] = space[i+1];
     space[i].measured_hour = new_hour;
     old_hour = new_hour;
     space[i].temp = DHT.temperature;
@@ -70,6 +74,7 @@ void loop() {
     Serial.println("----------------------");
   }
 
-  print_high_temp(space);
-  delay(5000);
+//  print_high_temp(space, array_size);
+  
+  delay(10000);
 }
