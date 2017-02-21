@@ -40,6 +40,17 @@ void setup() {
 
 
 void loop() {
+  
+  for (int k=0;k<array_size;k++){
+    Serial.print(space[k].measured_hour);
+    Serial.print(" --- ");
+    Serial.print(space[k].temp);
+    Serial.print(" --- ");
+    Serial.print(space[k].humidity);
+    Serial.println(" --- ");
+  }
+
+  
   int temp = DHT.read11(DHT11);
   //Transforms string of time to int, where only the hour is collected
   int new_hour = atoi(rtc.getTimeStr());
@@ -56,12 +67,10 @@ void loop() {
 
   // If button is pressed
   if (digitalRead(Button)){
-    for (int j=0 ; j<backlog ; j++){
-      //print_to_SD(space[j].measured_hour, space[j].temp, space[j].humidity);
-      print_to_serial(space[j].measured_hour, space[j].temp, space[j].humidity);
-    }
+    print_to_serial();
+    Serial.println("----------------------");
   }
 
   print_high_temp(space);
-  delay(2000);
+  delay(5000);
 }
