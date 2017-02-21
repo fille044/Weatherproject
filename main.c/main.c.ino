@@ -54,12 +54,11 @@ void loop() {
   int new_hour = atoi(rtc.getTimeStr());
   
   static int i = 0;
-    Serial.print(" *** "); 
+    /*Serial.print(" *** "); 
     Serial.print(i); 
-    Serial.println(" *** "); 
+    Serial.println(" *** "); */
   // If the hour variable has been changed, read new values
-  if (new_hour != old_hour){
-    space[i] = space[i+1];
+ if (new_hour-old_hour > 0 || new_hour-old_hour<0){
     space[i].measured_hour = new_hour;
     old_hour = new_hour;
     space[i].temp = DHT.temperature;
