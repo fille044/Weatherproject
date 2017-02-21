@@ -73,7 +73,7 @@ void loop() {
     Serial.println("----------------------");
   }
 
-//  print_high_temp(space, array_size);
+  print_high_temp(space, array_size); 
   
   delay(10000);
 }

@@ -40,26 +40,21 @@ void print_to_serial(void){
 
 }
 
-/*
-int print_high_temp(weather space, int array_size){
-  
-    int current, next, temp, sort[array_size];
-    for (current = 0; current < array_size; current++){
-      sort[current] = rand();
-      printf("%d  -  ", sort[current]);
-    }
 
+void print_high_temp(weather* space, int array_size){ 
+    int current, next, temporary, place; 
     for (current = 0; current < array_size; ++current) {
         for (next = current + 1; next < array_size; ++next) {
-            if (sort[current] > sort[next]) {
-                temp =  sort[current];
-                sort[current] = sort[next];
-                sort[next] = temp;
+            if (space[current].temp > space[next].temp) { 
+                temporary =  space[current].temp; 
+                place = current;
             }
         }
     }
-    printf("\nThe numbers arranged in ascending order are given below \n");
-    for (current = 0; current < array_size; ++current)
-        printf("%d  -  ", sort[current]);
-}*/
+    Serial.print("The highest temperature measured is: "); 
+    Serial.println(temporary); 
+    Serial.println(" degrees at "); 
+    Serial.println(space[place].measured_hour); 
+    return; 
+} 
 
