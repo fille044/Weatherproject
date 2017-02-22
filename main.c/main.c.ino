@@ -8,7 +8,7 @@
 #define Button 8
 #define chipSelect 10
 #define backlog 6
-#define array_size 10
+#define array_size 24
 
 DS3231 rtc(SDA,SCL);
 dht DHT;

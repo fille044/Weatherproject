@@ -10,11 +10,11 @@ void print_to_SD(int measured_hour, int temp, int humidity){
   // Opens file in write-mode and prints
   dataFile = SD.open("test.txt", FILE_WRITE);
   if(dataFile){
-    dataFile.print("Timme: ");
+    dataFile.print("Hour: ");
     dataFile.print(measured_hour);
     dataFile.print(" | Temp: ");
     dataFile.print(temp);
-    dataFile.print(" | Fuktighet: ");
+    dataFile.print(" | Humidity: ");
     dataFile.println(humidity);
     dataFile.println('\0');
     dataFile.close();
@@ -52,8 +52,8 @@ void print_high_temp(weather* space, int array_size){
         }
     }
     Serial.print("The highest temperature measured is: "); 
-    Serial.println(temporary); 
-    Serial.println(" degrees at "); 
+    Serial.print(temporary); 
+    Serial.print(" degrees at "); 
     Serial.println(space[place].measured_hour); 
     return; 
 } 
