@@ -58,16 +58,16 @@ void loop() {
       Serial.print(space[k].humidity); 
       Serial.println(" --- "); 
     }
-    // Calculates the highest temperature the last 24h
-    print_high_temp(space, array_size); 
   }
 
   // If button is pressed
   if (digitalRead(Button)){
     //  Reads from SD and prints to serial
     print_to_serial();
+    // Calculates the highest temperature the last 24h
+    print_high_low_temp(space, array_size); 
     Serial.println("----------------------");
   }
 
-  delay(10000);
+  delay(1000);
 }
