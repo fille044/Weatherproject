@@ -40,6 +40,7 @@ void print_to_serial(void){
 
 }
 
+  // Sista biten av en bubblesort-algoritm
 void print_high_low_temp(weather* space, int array_size){ 
     int current, next, place_h, place_l;
     int temporary_h = 0; // initiates temporary_h to something unusually low

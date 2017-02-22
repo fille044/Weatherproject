@@ -64,7 +64,7 @@ void loop() {
   if (digitalRead(Button)){
     //  Reads from SD and prints to serial
     print_to_serial();
-    // Calculates the highest temperature the last 24h
+    // Calculates the highest and lowest temperature the last 24h
     print_high_low_temp(space, array_size); 
     Serial.println("----------------------");
   }
