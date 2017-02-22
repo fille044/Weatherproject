@@ -8,12 +8,11 @@
 #define Button 8
 #define chipSelect 10
 #define backlog 6
-#define array_size 24
+#define array_size 25
 
 DS3231 rtc(SDA,SCL);
 dht DHT;
 
-int old_hour;
 
 weather space[array_size];
 
@@ -35,6 +34,14 @@ void setup() {
     return;
   }
   Serial.println("card initialized.");
+  space[12].temp = 26;
+  space[12].measured_hour = 12;
+  space[13].temp = 20;
+  space[13].measured_hour = 13;
+  space[14].temp = 21;
+  space[14].measured_hour = 14;
+  space[17].temp = 24;
+  space[17].measured_hour = 17;
 }
 
 
@@ -54,16 +61,18 @@ void loop() {
   int new_hour = atoi(rtc.getTimeStr());
   
   static int i = 0;
+  static int old_hour;
+
     /*Serial.print(" *** "); 
     Serial.print(i); 
     Serial.println(" *** "); */
   // If the hour variable has been changed, read new values
- if (new_hour-old_hour > 0 || new_hour-old_hour<0){
-    space[i].measured_hour = new_hour;
+ if (new_hour<old_hour || new_hour>old_hour){
+    space[new_hour].measured_hour = new_hour;
     old_hour = new_hour;
-    space[i].temp = DHT.temperature;
-    space[i].humidity = DHT.humidity;
-    print_to_SD(space[i].measured_hour, space[i].temp, space[i].humidity);
+    space[new_hour].temp = DHT.temperature;
+    space[new_hour].humidity = DHT.humidity;
+    print_to_SD(space[new_hour].measured_hour, space[new_hour].temp, space[new_hour].humidity);
     i++;
   }
 

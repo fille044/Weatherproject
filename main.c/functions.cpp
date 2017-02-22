@@ -42,19 +42,17 @@ void print_to_serial(void){
 
 
 void print_high_temp(weather* space, int array_size){ 
-    int current, next, temporary, place; 
-    for (current = 0; current < array_size; ++current) {
-        for (next = current + 1; next < array_size; ++next) {
-            if (space[current].temp > space[next].temp) { 
-                temporary =  space[current].temp; 
-                place = current;
-            }
-        }
+    int current, next, place;
+    int temporary = space[0].temp; 
+    for (current = 0; current < array_size; current++) {
+      if (space[current].temp > temporary) { 
+          temporary =  space[current].temp; 
+          place = current;
+      }
     }
     Serial.print("The highest temperature measured is: "); 
     Serial.print(temporary); 
     Serial.print(" degrees at "); 
     Serial.println(space[place].measured_hour); 
-    return; 
 } 
 
